@@ -48,7 +48,7 @@ export const Form = () => {
       />
       <CustumInput
         title="Стоимость номера"
-        type="number"
+        type="text"
         handleChange={handleChange}
         name={FORM.price}
       />
