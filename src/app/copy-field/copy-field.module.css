@@ -1,4 +1,21 @@
+.container {
+  position: relative;
+}
+
 .textarea {
   width: 400px;
   height: 500px;
+}
+
+.copy {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.6;
+  }
 }

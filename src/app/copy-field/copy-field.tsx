@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, MouseEvent } from 'react';
+import { FaCopy } from 'react-icons/fa6';
+import { ToastContainer, toast } from 'react-toastify';
+
 import Form from 'react-bootstrap/Form';
 import styles from './copy-field.module.css';
 import { useSelector } from '../hooks/hooks';
@@ -10,6 +13,7 @@ type Props = {
 
 function CopyField(props: Props) {
   const [textareaContent, setTextareaContent] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const {
     phone = '',
     INB = '',
@@ -24,8 +28,7 @@ function CopyField(props: Props) {
   } = useSelector((store) => store.form.form);
 
   useEffect(() => {
-    setTextareaContent(
-      `
+    let content = `
 Телефон: ${phone}
 Кол-во гостей: ${numberGuests}
 Дата: ${dateFrom} - ${dateTo}
@@ -33,18 +36,18 @@ function CopyField(props: Props) {
 Забронировал(а): ${nameBooked}
 Заселил(а): _________
 Стоимость номера: ${price}
-Тип оплаты: ${typePayments} \n`
-    );
+Тип оплаты: ${typePayments} 
+Заметки: \n`;
 
     if (INB) {
-      setTextareaContent((prevContent) => `${prevContent}ИНБ: ${INB} \n`);
+      content += `ИНБ: ${INB} \n`;
     }
 
     if (breakfast) {
-      setTextareaContent(
-        (prevContent) => `${prevContent}Завтрак: ${breakfast}`
-      );
+      content += `Завтрак: ${breakfast}`;
     }
+
+    setTextareaContent(content);
   }, [
     dateFrom,
     dateTo,
@@ -58,16 +61,46 @@ function CopyField(props: Props) {
     breakfast,
   ]);
 
+  function onClick(e: MouseEvent<SVGElement, globalThis.MouseEvent>) {
+    const data = textareaRef.current;
+    if (data) {
+      navigator.clipboard
+        .writeText(data.value)
+        .then(() => {
+          toast.success('Текст скопирован в буфер обмена');
+        })
+        .catch((err) => {
+          toast.error('Ошибка при копировании текста: ' + err);
+        });
+    }
+  }
+
   return (
     <section>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+      <Form.Group
+        className={styles.container}
+        controlId="exampleForm.ControlTextarea1"
+      >
         <Form.Control
           className={styles.textarea}
           as="textarea"
           rows={15}
           defaultValue={textareaContent}
+          ref={textareaRef}
         />
+        <FaCopy className={styles.copy} size={30} onClick={onClick} />
       </Form.Group>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </section>
   );
 }
