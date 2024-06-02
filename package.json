@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "homepage": "https://bogdaryan.github.io/hantri-template"
+  "homepage": "https://bogdaryan.github.io/hantri-template",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
