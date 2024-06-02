@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/hantri-template/static/css/main.aea80c2d.css",
-    "main.js": "/hantri-template/static/js/main.803cfa3f.js",
+    "main.js": "/hantri-template/static/js/main.363984a7.js",
     "index.html": "/hantri-template/index.html",
     "main.aea80c2d.css.map": "/hantri-template/static/css/main.aea80c2d.css.map",
-    "main.803cfa3f.js.map": "/hantri-template/static/js/main.803cfa3f.js.map"
+    "main.363984a7.js.map": "/hantri-template/static/js/main.363984a7.js.map"
   },
   "entrypoints": [
     "static/css/main.aea80c2d.css",
-    "static/js/main.803cfa3f.js"
+    "static/js/main.363984a7.js"
   ]
 }
